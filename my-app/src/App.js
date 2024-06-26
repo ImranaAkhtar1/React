@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <TodoCount />
+      <TodoList />
+      <AddTodo />
+    </>
   );
 }
 
-export default App;
+function TodoCount() {
+  return <div>Total Todos: </div>;
+}
+
+function TodoList() {
+  const [todos, setTodos] = React.useState(["item 1", "item 2", "item 3"]);
+
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <li key={todo}>{todo}</li>
+      ))}
+    </ul>
+  );
+}
+
+function AddTodo() {
+  function handleSubmit(event) {
+    event.preventDefault();
+    const todo = event.target.elements.todo.value;
+    console.log(todo);
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="text" id="todo" />
+      <button type="submit">Add Todo</button>
+    </form>
+  );
+}
